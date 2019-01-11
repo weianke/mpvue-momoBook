@@ -1,6 +1,6 @@
-# my-project
+# momoBook
 
-> A Mpvue project
+> 基于mpvue的图书小程序 码农开发中...🐶
 
 ## Build Setup
 
