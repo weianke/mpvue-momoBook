@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/main"
+    "pages/me/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

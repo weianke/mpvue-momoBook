@@ -1,5 +1,7 @@
 <template>
-  <div>个人中心</div>
+  <div>
+    个人中心页面1222
+  </div>
 </template>
 
 <script  type='text/ecmascript-6'>
