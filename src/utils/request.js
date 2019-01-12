@@ -16,8 +16,8 @@ function request (url, data, method) {
       url: config.host + url,
       success: function (res) {
         console.log(res)
-        if (res.code === 0) {
-          resolve(res.data)
+        if (res.data.code === 0) {
+          resolve(res.data.data)
         } else {
           reject(res.data)
         }
