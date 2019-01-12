@@ -47,6 +47,7 @@ let baseWebpackConfig = {
     alias: {
       'vue': 'mpvue',
       '@': resolve('src'),
+      'utils': resolve('src/utils'),
       'flyio': 'flyio/dist/npm/wx'
     },
     symlinks: false,
