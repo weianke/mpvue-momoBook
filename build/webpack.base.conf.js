@@ -48,6 +48,7 @@ let baseWebpackConfig = {
       'vue': 'mpvue',
       '@': resolve('src'),
       'utils': resolve('src/utils'),
+      'components': resolve('src/components'),
       'flyio': 'flyio/dist/npm/wx'
     },
     symlinks: false,

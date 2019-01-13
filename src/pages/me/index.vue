@@ -19,10 +19,14 @@
 </template>
 
 <script  type='text/ecmascript-6'>
+import YearProgress from '@/components/YearProgress'
 import qcloud from 'wafer2-client-sdk'
 import config from '@/config'
 import { showSuccess } from '@/utils'
 export default {
+  components: {
+    YearProgress
+  },
   data () {
     return {
       userinfo: {
@@ -100,5 +104,9 @@ export default {
     margin: 20rpx;
     border-radius: 50%;
   }
+}
+.btn {
+  color: #fff;
+  background: #EA5149;
 }
 </style>
