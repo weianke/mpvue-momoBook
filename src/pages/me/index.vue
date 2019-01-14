@@ -22,7 +22,7 @@
 import YearProgress from '@/components/YearProgress'
 import qcloud from 'wafer2-client-sdk'
 import config from '@/config'
-import { showSuccess } from '@/utils'
+import {post, showSuccess, showModal} from '@/utils/request'
 export default {
   components: {
     YearProgress
@@ -36,11 +36,20 @@ export default {
     }
   },
   methods: {
+    async addBook (isbn) {
+      const res = await post('/weapp/addbook', {
+        isbn,
+        openid: this.userinfo.openId
+      })
+      console.log(res)
+      showModal('添加成功', `${res.title}添加成功`)
+    },
     scanBook () {
       wx.scanCode({
         success: (res) => {
           if (res.result) {
-            console.log(res.result)
+            // 得到书籍的isbn号码
+            this.addBook(res.result)
           }
         }
       })
