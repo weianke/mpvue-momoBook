@@ -1,7 +1,7 @@
 <template>
   <a :href="detailUrl">
     <div class="book-card">
-      <div class="thumb">
+      <div class="thumb" @click.stop="preview">
         <img :src="book.image"
              alt="book"
              class="image"
@@ -33,6 +33,14 @@ export default {
   name: 'Card',
   components: {
     Rate
+  },
+  methods: {
+    preview () {
+      wx.previewImage({
+        current: this.book.image,
+        urls: [this.book.image] //需要预览的图片链接列表,
+      });
+    }
   },
   props: {
     book: Array

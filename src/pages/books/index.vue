@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TopSwiper :tops="tops"></TopSwiper>
     <Card v-for="book in books"
           :key="book.id"
           :book="book">
@@ -21,16 +22,19 @@
 // 2. page>0 数据长度<10 停止触底加载
 import { get } from 'utils/request'
 import Card from '@/components/Card'
+import TopSwiper from '@/components/TopSwiper'
 export default {
   name: 'book',
   components: {
-    Card
+    Card,
+    TopSwiper
   },
   data () {
     return {
       books: [],
       page: 0,
-      more: true
+      more: true,
+      tops: []
     }
   },
   methods: {
@@ -55,16 +59,19 @@ export default {
       }
     
       wx.hideNavigationBarLoading();
+    },
+    async getTop () {
+      const tops = await get('/weapp/top')
+      this.tops = tops.list
     }
-  },
-  onShow () {
-    this.getList(true)
   },
   mounted () {
     this.getList(true)
+    this.getTop()
   },
   onPullDownRefresh () {
     this.getList(true)
+    this.getTop()
   },
   onReachBottom () {
     if (!this.more) {
