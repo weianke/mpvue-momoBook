@@ -57,6 +57,9 @@ export default {
       wx.hideNavigationBarLoading();
     }
   },
+  onShow () {
+    this.getList(true)
+  },
   mounted () {
     this.getList(true)
   },
