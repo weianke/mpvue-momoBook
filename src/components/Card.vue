@@ -4,16 +4,16 @@
       <img :src="book.image" alt="book" class="image" mode="aspectFit">
     </div>
     <div class="detail">
-      <div class="row">
+      <div class="row text-primary">
         <div class="right">{{book.rate}} <Rate :value="book.rate"></Rate></div>
         <div class="left">{{book.title}}</div>
       </div>
        <div class="row">
-        <div class="right">浏览量：</div>
+        <div class="right">浏览量：{{book.count}}</div>
         <div class="left">{{book.author}}</div>
       </div>
        <div class="row">
-        <div class="right">添加人：</div>
+        <div class="right">{{book.user_info.nickName}}</div>
         <div class="left">{{book.publisher}}</div>
       </div>
     </div>
@@ -58,6 +58,9 @@ export default {
     }
     .right {
       float: right;
+    }
+    .left {
+      overflow: hidden;
     }
   }
 }
