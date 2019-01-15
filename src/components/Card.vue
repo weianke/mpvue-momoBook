@@ -5,7 +5,7 @@
     </div>
     <div class="detail">
       <div class="row">
-        <div class="right">{{book.rate}}</div>
+        <div class="right">{{book.rate}} <Rate :value="book.rate"></Rate></div>
         <div class="left">{{book.title}}</div>
       </div>
        <div class="row">
@@ -21,8 +21,12 @@
 </template>
 
 <script  type='text/ecmascript-6'>
+import Rate from '@/components/Rate'
 export default {
   name: 'Card',
+  components: {
+    Rate
+  },
   props: {
     book: Array
   }
