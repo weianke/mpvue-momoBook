@@ -1,6 +1,26 @@
 <template>
   <div>
     <BookInfo :info="info"></BookInfo>
+    <div class="comment">
+      <textarea v-model="comment"
+                maxlength="100"
+                class="textarea"
+                placeholder="请输入图片短评"></textarea>
+      <div class="location">
+        地理位置
+        <switch color="#EA5A49"
+                :checked='location'
+                @change="getGeo"></switch>
+        <span class="text-primary">{{location}}</span>
+      </div>
+      <div class="phone">
+        手机型号
+        <switch color="#EA5A49"
+                :checked='phone'
+                @change="getPhone"></switch>
+        <span class="text-primary">{{phone}}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,7 +32,10 @@ export default {
   data () {
     return {
       bookid: '',
-      info: {}
+      info: {},
+      comment: '',
+      location: '',
+      phone: ''
     }
   },
   components: {
@@ -26,6 +49,41 @@ export default {
         title: info.title
       })
       this.info = info
+    },
+    getGeo (e) {
+      if (e.target.value) {
+        // 百度token z7CKPQL455hq9R3GPEfzvfMNVFv1oRCr
+        // 百度api http://api.map.baidu.com/geocoder/v2/
+        const ak = 'z7CKPQL455hq9R3GPEfzvfMNVFv1oRCr'
+        let url = 'http://api.map.baidu.com/geocoder/v2/'
+        wx.getLocation({
+          success: res => {
+            this.$http.get(url, {
+              location: `${res.latitude}, ${res.longitude}`,
+              output: 'json',
+              ak
+            }).then(suc => {
+              console.log(suc)
+              if (suc.data.status === 0) {
+                this.location = suc.data.result.addressComponent.city
+              } else {
+                this.location = '未知地点'
+              }
+            })
+          }
+        })
+      } else {
+        this.location = ''
+      }
+    },
+    getPhone (e) {
+      if (e.target.value) {
+        const phoneInfo = wx.getSystemInfoSync()
+        this.phone = phoneInfo.model
+      } else {
+        // 未选择
+        this.phone = ''
+      }
     }
   },
   mounted () {
@@ -45,5 +103,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.comment {
+  margin-top: 10px;
+  .textarea {
+    width: 730rpx;
+    height: 200rpx;
+    background: #eeeeee;
+    padding: 10rpx;
+  }
+  .location {
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+  .phone {
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+}
 </style>
