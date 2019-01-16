@@ -41,7 +41,6 @@ export default {
         isbn,
         openid: this.userinfo.openId
       })
-      console.log(res)
       showModal('添加成功', `${res.title}添加成功`)
     },
     scanBook () {
