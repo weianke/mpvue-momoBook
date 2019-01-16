@@ -43,7 +43,7 @@ export default {
         this.page = 0
         this.more = true
       }
-      wx.showNavigationBarLoading();
+      wx.showNavigationBarLoading()
       const books = await get('/weapp/booklist', { page: this.page })   
       if (books.list.length < 10 && this.page > 0) {
         // 最后一页数据 隐藏more
@@ -58,7 +58,7 @@ export default {
         this.books = this.books.concat(books.list)
       }
     
-      wx.hideNavigationBarLoading();
+      wx.hideNavigationBarLoading()
     },
     async getTop () {
       const tops = await get('/weapp/top')
