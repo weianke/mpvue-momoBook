@@ -27,6 +27,12 @@
       {{info.publisher}}
       <div class="right">{{info.price}}</div>
     </div>
+    <div class="tags">
+      <div class="badge" v-for="tag in info.tags" :key="tag">{{tag}}</div>
+    </div>
+    <div class="summary">
+      <p v-for="sum in info.summary" :key="sum">{{sum}}</p>
+    </div>
   </div>
 </template>
 
@@ -51,6 +57,23 @@ export default {
 <style scoped lang='scss'>
 .bookinfo {
   font-size: 14px;
+
+  .badge {
+    display: inline-block;
+    margin: 5px;
+    border-radius: 10px;
+    border: 1px solid #EA5a49;
+    color: #EA5a49;
+    padding: 5px;
+  }
+  .summary {
+    padding: 0 15px;
+    margin-top: 10px;
+    p {
+      text-indent: 20px;
+      font-size: 14px;
+    }
+  }
   .right{
     float: right;
   }
