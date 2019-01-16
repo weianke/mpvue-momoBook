@@ -1,8 +1,9 @@
 <template>
   <div>
     <BookInfo :info="info"></BookInfo>
-    <Commentslist :comments="comments"></Commentslist>
-    <div class="comment">
+    <CommentsList :comments="comments"></CommentsList>
+    <div class="comment"
+         v-if="showAdd">
       <textarea v-model="comment"
                 maxlength="100"
                 class="textarea"
@@ -21,17 +22,24 @@
                 @change="getPhone"></switch>
         <span class="text-primary">{{phone}}</span>
       </div>
-      <button class="btn" @click="addComment">
+      <button class="btn"
+              @click="addComment">
         评论
       </button>
     </div>
+    <div v-else
+         class='text-footer'>
+      未登录或者已经评论过啦
+    </div>
+    <button open-type='share'
+            class="btn">转发给好友</button>
   </div>
 </template>
 
 <script  type='text/ecmascript-6'>
 import { get, post, showModal } from 'utils/request'
 import BookInfo from '@/components/BookInfo'
-import commentsList from '@/components/commentsList'
+import CommentsList from '@/components/CommentsList'
 import { userInfo } from 'os';
 export default {
   name: 'Detail',
@@ -46,16 +54,29 @@ export default {
       comments: []
     }
   },
+  computed: {
+    showAdd () {
+      // 没登录
+      if (!this.userInfo) {
+        return false
+      }
+      // 评论页面里查到有自己的openid
+      if (this.comments.filter(v => v.openid === this.userInfo.openId).length) {
+        return false
+      }
+      return true
+    }
+  },
   components: {
     BookInfo,
-    commentsList
+    CommentsList
   },
   methods: {
     async addComment () {
       if (!this.comment) {
         return
       }
-       // 评论内容  手机型号 地理位置 图书id  用户openid
+      // 评论内容  手机型号 地理位置 图书id  用户openid
       const data = {
         openid: this.userInfo.openId,
         bookid: this.bookid,
@@ -66,13 +87,14 @@ export default {
       try {
         await post('/weapp/addcomment', data)
         this.comment = ''
+        this.getComments()
       } catch (e) {
         showModal('失败', e.msg)
       }
       console.log(data)
     },
     async getComments () {
-      const comments = await get('/weapp/commentlist', {bookid: this.bookid})
+      const comments = await get('/weapp/commentlist', { bookid: this.bookid })
       this.comments = comments.list || []
     },
     async getDetail () {
