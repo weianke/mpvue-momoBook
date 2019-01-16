@@ -1,6 +1,5 @@
 <template>
   <div>
-     <div>{{bookid}}</div>
      <BookInfo :info="info"></BookInfo>
   </div>
 </template>

@@ -2,7 +2,8 @@
   <div class="container">
     <div class="userinfo">
       <img :src="userinfo.avatarUrl"
-           alt="avatarUrl">
+           alt="avatarUrl"
+           mode="aspectFit">
       <p>{{userinfo.nickName}}</p>
     </div>
     <YearProgress></YearProgress>
@@ -22,7 +23,7 @@
 import YearProgress from '@/components/YearProgress'
 import qcloud from 'wafer2-client-sdk'
 import config from '@/config'
-import {post, showSuccess, showModal} from '@/utils/request'
+import { post, showSuccess, showModal } from '@/utils/request'
 export default {
   components: {
     YearProgress
@@ -115,6 +116,6 @@ export default {
 }
 .btn {
   color: #fff;
-  background: #EA5149;
+  background: #ea5149;
 }
 </style>
