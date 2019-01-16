@@ -1,6 +1,6 @@
 <template>
   <div>
-     <BookInfo :info="info"></BookInfo>
+    <BookInfo :info="info"></BookInfo>
   </div>
 </template>
 
@@ -20,21 +20,30 @@ export default {
   },
   methods: {
     async getDetail () {
-      const info = await get('/weapp/bookdetail', {id: this.bookid})
+      const info = await get('/weapp/bookdetail', { id: this.bookid })
       console.log(info)
-      wx.setNavigationBarTitle({ 
+      wx.setNavigationBarTitle({
         title: info.title
       })
       this.info = info
     }
   },
   mounted () {
-    this.bookid = this.$root.$mp.query.id    
+    this.bookid = this.$root.$mp.query.id
     this.getDetail()
+  },
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: this.info.title,
+      path: '/pages/detail/main?id=' + this.bookid
+    }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

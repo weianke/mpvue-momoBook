@@ -18,20 +18,51 @@
         </div>
       </div>
     </div>
+    <div class="detail">
+      <img class="avatar" :src="userinfo.image" alt="avatar" mode="aspectFit">
+      {{userinfo.name}}
+      <div class="right text-primary">{{info.rate}}分<Rate :value="info.rate"></Rate></div>
+    </div>
+    <div class="detail">
+      {{info.publisher}}
+      <div class="right">{{info.price}}</div>
+    </div>
   </div>
 </template>
 
 <script  type='text/ecmascript-6'>
+import Rate from '@/components/Rate'
 export default {
   name: 'BookInfo',
   props: {
     info: Object
+  },
+  components: {
+    Rate
+  },
+  computed: {
+    userinfo () {
+      return this.info.user_info || {}
+    }
   }
 }
 </script>
 
 <style scoped lang='scss'>
 .bookinfo {
+  font-size: 14px;
+  .right{
+    float: right;
+  }
+  .detail {
+    padding: 5px 10px;
+    .avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  }
   .thumb {
     width: 750rpx;
     height: 500rpx;
