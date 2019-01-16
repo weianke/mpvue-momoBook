@@ -1,6 +1,7 @@
 <template>
   <div>
     <BookInfo :info="info"></BookInfo>
+    <Commentslist :comments="comments"></Commentslist>
     <div class="comment">
       <textarea v-model="comment"
                 maxlength="100"
@@ -30,6 +31,7 @@
 <script  type='text/ecmascript-6'>
 import { get, post, showModal } from 'utils/request'
 import BookInfo from '@/components/BookInfo'
+import commentsList from '@/components/commentsList'
 import { userInfo } from 'os';
 export default {
   name: 'Detail',
@@ -40,11 +42,13 @@ export default {
       info: {},
       comment: '',
       location: '',
-      phone: ''
+      phone: '',
+      comments: []
     }
   },
   components: {
-    BookInfo
+    BookInfo,
+    commentsList
   },
   methods: {
     async addComment () {
@@ -66,6 +70,10 @@ export default {
         showModal('失败', e.msg)
       }
       console.log(data)
+    },
+    async getComments () {
+      const comments = await get('/weapp/commentlist', {bookid: this.bookid})
+      this.comments = comments.list || []
     },
     async getDetail () {
       const info = await get('/weapp/bookdetail', { id: this.bookid })
@@ -114,10 +122,10 @@ export default {
   mounted () {
     this.bookid = this.$root.$mp.query.id
     this.getDetail()
+    this.getComments()
     const userinfo = wx.getStorageSync('userinfo')
     if (userinfo) {
       this.userInfo = userinfo
-      console.log('userInfo',this.userInfo)
     }
   },
   onShareAppMessage (res) {
