@@ -20,17 +20,22 @@
                 @change="getPhone"></switch>
         <span class="text-primary">{{phone}}</span>
       </div>
+      <button class="btn" @click="addComment">
+        评论
+      </button>
     </div>
   </div>
 </template>
 
 <script  type='text/ecmascript-6'>
-import { get } from 'utils/request'
+import { get, post, showModal } from 'utils/request'
 import BookInfo from '@/components/BookInfo'
+import { userInfo } from 'os';
 export default {
   name: 'Detail',
   data () {
     return {
+      userInfo: {},
       bookid: '',
       info: {},
       comment: '',
@@ -42,6 +47,26 @@ export default {
     BookInfo
   },
   methods: {
+    async addComment () {
+      if (!this.comment) {
+        return
+      }
+       // 评论内容  手机型号 地理位置 图书id  用户openid
+      const data = {
+        openid: this.userInfo.openId,
+        bookid: this.bookid,
+        comment: this.comment,
+        phone: this.phone,
+        location: this.location
+      }
+      try {
+        await post('/weapp/addcomment', data)
+        this.comment = ''
+      } catch (e) {
+        showModal('失败', e.msg)
+      }
+      console.log(data)
+    },
     async getDetail () {
       const info = await get('/weapp/bookdetail', { id: this.bookid })
       console.log(info)
@@ -89,6 +114,11 @@ export default {
   mounted () {
     this.bookid = this.$root.$mp.query.id
     this.getDetail()
+    const userinfo = wx.getStorageSync('userinfo')
+    if (userinfo) {
+      this.userInfo = userinfo
+      console.log('userInfo',this.userInfo)
+    }
   },
   onShareAppMessage (res) {
     if (res.from === 'button') {
