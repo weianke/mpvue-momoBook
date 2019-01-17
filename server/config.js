@@ -4,22 +4,22 @@ const CONF = {
     // tunnelServerUrl: '',
     // tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
     //   // 腾讯云相关配置可以查看云 API 秘钥控制台：https://console.cloud.tencent.com/capi
-    // qcloudAppId: '1257595210',
-    // qcloudSecretId: 'AKIDa9n50nP6d3KiwXlQDpGXwD91p9IGmGyf',
-    // qcloudSecretKey: 'zvbJxQpBaq2AEB73oU9jDmQzNoFe9Vis',
+    qcloudAppId: '1257595210',
+    qcloudSecretId: 'AKIDa9n50nP6d3KiwXlQDpGXwD91p9IGmGyf',
+    qcloudSecretKey: 'zvbJxQpBaq2AEB73oU9jDmQzNoFe9Vis',
     // wxMessageToken: 'weixinmsgtoken',
     // networkTimeout: 30000,
     port: '5757',
     rootPathname: '',
 
     // 微信小程序 App ID
-    appId: '',
+    appId: 'wxdc9ae2d85457eaa4',
 
     // 微信小程序 App Secret
-    appSecret: '',
+    appSecret: 'e481f65812cb56c6e11c8ad0bb393d08',
 
     // 是否使用腾讯云代理登录小程序
-    useQcloudLogin: true,
+    useQcloudLogin: false,
 
     /**
      * MySQL 配置，用来存储 session 和用户信息
