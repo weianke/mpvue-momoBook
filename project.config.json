@@ -8,7 +8,8 @@
 		"newFeature": true,
 		"autoAudits": false
 	},
-	"miniprogramRoot": "dist/wx/",
+  "miniprogramRoot": "dist/wx/",
+  "qcloudRoot": "./server/",
 	"compileType": "miniprogram",
 	"appid": "wxdc9ae2d85457eaa4",
 	"projectname": "my-project",
