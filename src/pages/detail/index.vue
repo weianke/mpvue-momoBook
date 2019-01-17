@@ -134,7 +134,9 @@ export default {
     getPhone (e) {
       if (e.target.value) {
         const phoneInfo = wx.getSystemInfoSync()
-        this.phone = phoneInfo.model
+        let phone = phoneInfo.model.split('<')[0]
+        console.log(phone)
+        this.phone = phone
       } else {
         // 未选择
         this.phone = ''
